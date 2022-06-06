@@ -17,13 +17,18 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  for(let x = 0; x < WIDTH; x++){
+    for(let y = 0; y < HEIGHT; y++){
+
+    }
+  }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
-
+  htmlBoard = document.getElementById("board");
   // TODO: add comment for this code
   var top = document.createElement("tr");
   top.setAttribute("id", "column-top");
@@ -114,13 +119,13 @@ function checkForWin() {
   }
 
   // TODO: read and understand this code. Add comments to help you.
-
+  //looking at each cell and 4 possible wins from the cell
   for (var y = 0; y < HEIGHT; y++) {
     for (var x = 0; x < WIDTH; x++) {
-      var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+      var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]]; //horizontal
+      var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]]; //vertical
+      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; //Right diagonal win
+      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]]; //Left diagonal win
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
