@@ -9,7 +9,8 @@ var WIDTH = 7;
 var HEIGHT = 6;
 
 var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+var board = [[]]; // array of rows, each row is array of cells  (board[y][x])
+var boardRow = [];
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -19,7 +20,7 @@ function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for(let x = 0; x < WIDTH; x++){
     for(let y = 0; y < HEIGHT; y++){
-
+      board[y] = boardRow[x];
     }
   }
 }
@@ -69,6 +70,7 @@ function placeInTable(y, x) {
 /** endGame: announce game end */
 
 function endGame(msg) {
+  alert(msg);
   // TODO: pop up alert message
 }
 
@@ -82,6 +84,9 @@ function handleClick(evt) {
   var y = findSpotForCol(x);
   if (y === null) {
     return;
+  }
+  else{
+    return y; //added this
   }
 
   // place piece in board and add to HTML table
