@@ -66,6 +66,12 @@ function findSpotForCol(x) {
 
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
+  board[y][x]= currPlayer;
+  let placeSpot = document.getElementById(`${y}-${x}`);
+  let pieceToPlace = document.createElement('div');
+  placeSpot.appendChild(pieceToPlace);
+  pieceToPlace.classList.add(`p${currPlayer}`);
+  pieceToPlace.classList.add('piece');
 }
 
 /** endGame: announce game end */
@@ -103,6 +109,7 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
 
   // switch players
+  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1 ;
   // TODO: switch currPlayer 1 <-> 2
 }
 
