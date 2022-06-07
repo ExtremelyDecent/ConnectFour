@@ -17,10 +17,10 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-  for(let x = 0; x < WIDTH; x++){
-    board[x] = [];
-    for(let y = 0; y < HEIGHT; y++){      
-      board[x][y] = null;
+  for(let y = 0; y < HEIGHT; y++){
+    board[y] = [];
+    for(let x = 0; x < WIDTH; x++){      
+      board[y][x] = null;
     }
   }
 }
@@ -57,7 +57,7 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  console.log (board);
+  console.log (x);
   // TODO: write the real version of this, rather than always returning 0
   return 0;
 }
@@ -130,10 +130,10 @@ function checkForWin() {
     for (var x = 0; x < WIDTH; x++) {
       var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]]; //horizontal
       var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]]; //vertical
-      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; //Right diagonal win
-      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]]; //Left diagonal win
+      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; //Right diagonal check
+      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]]; //Left diagonal check
 
-      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) { //check for win at each possible direction
         return true;
       }
     }
