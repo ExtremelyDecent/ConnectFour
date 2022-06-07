@@ -9,8 +9,7 @@ var WIDTH = 7;
 var HEIGHT = 6;
 
 var currPlayer = 1; // active player: 1 or 2
-var board = [[]]; // array of rows, each row is array of cells  (board[y][x])
-var boardRow = [];
+var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -19,8 +18,9 @@ var boardRow = [];
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for(let x = 0; x < WIDTH; x++){
-    for(let y = 0; y < HEIGHT; y++){
-      board[y] = boardRow[x];
+    board[x] = [];
+    for(let y = 0; y < HEIGHT; y++){      
+      board[x][y] = null;
     }
   }
 }
@@ -57,6 +57,7 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
+  console.log (board);
   // TODO: write the real version of this, rather than always returning 0
   return 0;
 }
@@ -85,9 +86,9 @@ function handleClick(evt) {
   if (y === null) {
     return;
   }
-  else{
-    return y; //added this
-  }
+  // else{
+  //   return y; //added this
+  // }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
