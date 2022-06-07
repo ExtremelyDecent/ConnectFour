@@ -31,21 +31,21 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   htmlBoard = document.getElementById("board");
   // TODO: add comment for this code
-  var top = document.createElement("tr");
+  let top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  for (let x = 0; x < WIDTH; x++) {
+    let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
   htmlBoard.append(top);
 
   // TODO: add comment for this code
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
-    for (var x = 0; x < WIDTH; x++) {
+    for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
       cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
@@ -57,9 +57,14 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  console.log (x);
+
+  for(let y = HEIGHT-1; y>=0; y--){
+    if(!board[y][x]){ //checking for available spaces
+      return y;
+    }
+  }
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -67,9 +72,9 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
   board[y][x]= currPlayer;
-  let placeSpot = document.getElementById(`${y}-${x}`);
-  let pieceToPlace = document.createElement('div');
-  placeSpot.appendChild(pieceToPlace);
+  const placeColumn = document.getElementById(`${y}-${x}`);
+  const pieceToPlace = document.createElement('div');
+  placeColumn.appendChild(pieceToPlace);
   pieceToPlace.classList.add(`p${currPlayer}`);
   pieceToPlace.classList.add('piece');
 }
@@ -85,10 +90,10 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  var x = +evt.target.id;
+  let x = +evt.target.id;
 
   // get next spot in column (if none, ignore click)
-  var y = findSpotForCol(x);
+  let y = findSpotForCol(x);
   if (y === null) {
     return;
   }
@@ -133,12 +138,12 @@ function checkForWin() {
 
   // TODO: read and understand this code. Add comments to help you.
   //looking at each cell and 4 possible wins from the cell
-  for (var y = 0; y < HEIGHT; y++) {
-    for (var x = 0; x < WIDTH; x++) {
-      var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]]; //horizontal
-      var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]]; //vertical
-      var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; //Right diagonal check
-      var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]]; //Left diagonal check
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]]; //horizontal
+      let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]]; //vertical
+      let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]]; //Right diagonal check
+      let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]]; //Left diagonal check
 
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) { //check for win at each possible direction
         return true;
