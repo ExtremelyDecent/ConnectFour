@@ -18,7 +18,11 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   for(let y = 0; y < HEIGHT; y++){
-    board[y] = [];
+    for(let x = 0; x < WIDTH; x++){      
+      board[y] = [];
+    }
+  }
+  for(let y = 0; y < HEIGHT; y++){
     for(let x = 0; x < WIDTH; x++){      
       board[y][x] = null;
     }
@@ -58,10 +62,13 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
 
-  for(let y = HEIGHT-1; y>=0; y--){
-    if(!board[y][x]){ //checking for available spaces
-      return y;
+  for(let y = HEIGHT; y>0; y--){
+    if(board[y-1][x] === null){ //checking for available spaces
+      return (y-1);
     }
+  }
+  if(board[0][x] === null){
+    return 0;
   }
   // TODO: write the real version of this, rather than always returning 0
   return null;
@@ -77,6 +84,17 @@ function placeInTable(y, x) {
   placeColumn.appendChild(pieceToPlace);
   pieceToPlace.classList.add(`p${currPlayer}`);
   pieceToPlace.classList.add('piece');
+}
+//
+function isTie(){
+  for(let y = 0; y < HEIGHT; y++){
+    for(let x = 0; x < WIDTH; x++){      
+      if (!(board[y][x])){
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 /** endGame: announce game end */
@@ -94,27 +112,33 @@ function handleClick(evt) {
 
   // get next spot in column (if none, ignore click)
   let y = findSpotForCol(x);
-  if (y === null) {
-    return;
-  }
+
+  placeInTable(y, x);
+ 
   // else{
-  //   return y; //added this
+  // //   return y; //added this
+  //   return;
+  
   // }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  placeInTable(y, x);
+  
 
   // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
+  
 
+  if(isTie()){
+    return endGame('No player won. The game is a tie');
+  }
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
 
   // switch players
-  currPlayer === 1 ? currPlayer = 2 : currPlayer = 1 ;
+  currPlayer = currPlayer === 1?  2 :1;
   // TODO: switch currPlayer 1 <-> 2
 }
 
@@ -134,6 +158,7 @@ function checkForWin() {
         x < WIDTH &&
         board[y][x] === currPlayer
     );
+
   }
 
   // TODO: read and understand this code. Add comments to help you.
